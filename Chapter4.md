@@ -47,7 +47,6 @@
 
 * 스레드는 Foreground 스레드와 Background 스레드로 나뉜다.
 
-
 * Foreground 스레드
   - 클라이언트가 요청하는 쿼리를 처리하는 스레드
   - 최소한 MySQL 서버에 접속한 클라이언트 수만큼 존재한다.
