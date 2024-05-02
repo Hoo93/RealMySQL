@@ -24,7 +24,7 @@
 - 잠금의 종류
 1) 스토리지 엔진 레벨의 잠금
     - 스토리지 엔진 간 상호 영향 주지 않음
-2) MySQL 엔질 레벨의 잠금
+2) MySQL 엔진 레벨의 잠금
     - 모든 스토리지 엔진에 영향을 줌
 
 
@@ -75,7 +75,7 @@
     - infroamtion_schema.INNODB_TRX, INNODB_LOCKS, INNODB_LOCK_WAITS 테이블을 통해 확인 가능
 
 ### 5.3.1 InnoDB 스토리지 엔진의 잠금 종류
-#### 5.3.1.1 레코드 락
+#### 레코드 락
 - 레코드 단위로 잠금을 설정
 - 실제 레코드를 잠그는 것이 아니라 레코드를 조회하기 위한 인덱스를 잠근다.
 - 보조 인덱스를 활용한 잠금은 대부분 갭락, 넥스트 키 락을 사용한다.
@@ -144,6 +144,7 @@
 ### 5.4.1 READ UNCOMMITTED
 - 다른 트랜잭션이 커밋하지 않은 데이터를 읽을 수 있음
 - Dirty Read 발생 가능
+- 언두 로그가 아닌 InnoDB 버퍼풀의 데이터를 바라보고 있다. 
 - 최소한 READ COMMITTED 이상의 격리 수준을 사용할 것을 권장
 
 ### 5.4.2 READ COMMITTED
@@ -168,3 +169,23 @@
 - 가장 높은 격리 수준
 - 읽기 작업도 공유 잠금 권한을 획득해야함
 - MySQL InnoDB에서는 REPEATABLE READ에서도 Phantom Read가 발생하지 않아 굳이 사용할 이유가 없음
+
+
+
+### 스터디
+- InnoDB도 Phantom Read가 발생할 수 있다.
+
+- 트랜잭션 ACID
+- Atomicity : 원자성
+  - 트랜잭션 내 작업은 하나처럼 동작한다.
+- Consistency : 일관성
+  - 트랜잭션이 완료되면 일관적인 DB 상태를 유지한다.
+  - 설정한
+- Isolation : 격리성 ??
+  - 고립성은 동시 트랜잭션을 처리하는데 사용
+- Durability : 지속성
+  - 트랜잭션이 성공적으로 완료되면 영구적으로 DB에 반영된다.
+
+- InnoDB는 Phatom Read가 발생하지 않는다 ??
+  - 발생한다 !
+  - SELECT / SELECT ... FOR UPDATE 하는 경우 ! (언두 로그를 읽고 InnoDB버퍼 풀을 읽기 때문에 !)
