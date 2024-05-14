@@ -433,6 +433,8 @@
 
 # 스터디 내용 질문
 * 인덱스 키 값은 어떻게 계산하나요 ?
+  * utf8mb4 : 4byte
+  * utf8 : 3byte
 * 인덱스
 * NOT-DETERMINISTRIC 속성의 함수란 ?
 * Hash 인덱스는 메모리기반 DBMS에서 사용되는데 메모리 기반 DBMS란 ?
